@@ -1,6 +1,0 @@
-{"name":"D", "id":44444, "timetable":
-[[True, True, True, True, True, True, True, True, True, False, False, False, True, True, True, True, True, True, False, False, False, False, False, False, False, False],
-[False, False, False, False, False, False, True, True, True, True, True, True, True, True, True, False, False, False, True, True, True, True, True, True, True, True],
-[True, True, True, True, True, True, False, False, False, False, False, True, True, True, True, False, False, True, True, True, True, True, True, True, True, True],
-[False, False, False, False, False, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True, False, False, False, True, True, True],
-[True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]]
