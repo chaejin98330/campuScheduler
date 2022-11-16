@@ -8,9 +8,58 @@ def scheduling(student_list, schedule):
     else:
         return equal_scheduling(student_list, schedule)
 
-def equal_scheduling(student_list, schedule):
-    # make graph
+def min2idx(minute):
+    minute -= minute%30
+    day = 24 * 60
+    return (minute-((minute//day)*day)-60*9)//30 ,minute//day
 
+def simulation(student_list, schedule, l, r):
+    # initialize
+    n = len(student_list)
+    m = len(schedule.need)
+    dinic = Dinic(n+m+10)
+    dinic.set_S1(n+m+1); dinic.set_T1(n+m+2)
+    dinic.set_S2(n+m+3); dinic.set_T2(n+m+4)
+
+    # add edge
+    for i in range(1,n+1):
+        dinic.add_edge(dinic.S1, i, l, r)
+    for i in range(n+1,n+m+1):
+        dinic.add_edge(i, dinic.T1, schedule.mini, schedule.maxi)
+    for i in range(n):
+        for j in range(m):
+            tf = True
+            sr, sc = min2idx(schedule.need[j][0])
+            fr, fc = min2idx(schedule.need[j][1])
+            for y in range(sr,fr+1):
+                if not student_list[i].pos[y][sc]:
+                    tf = False
+                    break
+            if tf:
+                dinic.add_edge(i+1, n+1+j, 0, 1)
+    dinic.add_edge(dinic.T1, dinic.S1, 0, dinic.INF)
+
+    # check validity
+    flw = dinic.get_flw(dinic.S2, dinic.T2)
+    if flw != dinic.lsum:
+        return False, None
+
+    #make result
+    None
+
+def equal_scheduling(student_list, schedule):
+    # divide schedule.need into unit_time
+    need = []
+    unit_time = schedule.unit_time
+    for v in schedule.need:
+        t = (v[1]-v[0])/unit_time
+        cur = v[0]
+        nxt = cur + unit_time
+        for i in range(t):
+            need.append((cur, nxt))
+            cur += unit_time
+            nxt += unit_time
+    schedule.need = need
     # scheduling using dinic
 
     # save result
@@ -26,9 +75,13 @@ def all_scheduling(student_list):
     for r in ret:
         for j in range(cn):
             r.append(True)
+    cnt = rn * cn
     for i in range(student_num):
         for j in range(rn):
             for k in range(cn):
-                if not student_list[i].pos[j][k]:
+                if not student_list[i].pos[j][k] and ret[i][j]:
                     ret[i][j] = False
-    return ret
+                    cnt -= 1
+    if cnt == 0:
+        return False, None
+    return True, ret
