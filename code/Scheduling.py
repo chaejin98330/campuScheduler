@@ -63,6 +63,6 @@ for i in range(len(file_list)):
 
 
 # 알고리즘 시행
-result = scheduling(student_list, schedule)
+success, result = scheduling(student_list, schedule)
 
 # 알고리즘 결과를 엑셀(csv) 형식으로 파싱
