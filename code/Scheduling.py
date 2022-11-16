@@ -33,7 +33,7 @@ for i in range(len(sys.argv)):
         duplication_flag = True
     elif sys.argv[i] == "-a":
         all_possible_flag = True
-    elif sys.argv[i] == "-n":
+    elif sys.argv[i] == "-e":
         equality_flag = True
     elif sys.argv[i] == "-p":
         people_min = int(sys.argv[i+1])
@@ -64,5 +64,7 @@ for i in range(len(file_list)):
 
 # 알고리즘 시행
 success, result = scheduling(student_list, schedule)
+print(success)
+print(result)
 
 # 알고리즘 결과를 엑셀(csv) 형식으로 파싱
