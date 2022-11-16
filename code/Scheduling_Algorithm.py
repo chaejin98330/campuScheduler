@@ -45,7 +45,12 @@ def simulation(student_list, schedule, l, r):
         return False, None
 
     #make result
-    None
+    ret = [[] for i in range(n)]
+    for i in range(1,n+1):
+        for nv in dinic.lst[i]:
+            if n+1 <= nv.nxt <= n+m and nv.flw>0:
+                ret[i-1].append(nv.nxt-n-1)
+    return True, ret
 
 def equal_scheduling(student_list, schedule):
     # divide schedule.need into unit_time
@@ -61,9 +66,38 @@ def equal_scheduling(student_list, schedule):
             nxt += unit_time
     schedule.need = need
     # scheduling using dinic
+    INF = len(schedule.need)
+    tf = False
+    ret = None
+    st = 0; fn = INF
+    l = 0
+    while st<=fn:
+        mid = (st+fn)//2
+        _tf, _ret = simulation(student_list, schedule, mid, INF)
+        if _tf:
+            tf, ret = _tf, _ret
+            l = mid
+            st = mid+1
+        else:
+            fn = mid-1
 
-    # save result
-    None
+    if not tf:
+        return tf, ret
+
+    st = l; fn = INF
+    r = INF
+    while st<=fn:
+        mid = (st+fn)//2
+        _tf, _ret = simulation(student_list, schedule, l, mid)
+        if _tf:
+            tf, ret = _tf, _ret
+            r = mid
+            fn = mid-1
+        else:
+            st = mid+1
+
+    # return result
+    return tf, ret
 
 def all_scheduling(student_list):
     student_num = len(student_list)
