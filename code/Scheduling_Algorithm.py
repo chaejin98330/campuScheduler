@@ -49,7 +49,7 @@ def simulation(student_list, schedule, l, r):
     for i in range(1,n+1):
         for nv in dinic.lst[i]:
             if n+1 <= nv.nxt <= n+m and nv.flw>0:
-                ret[i-1].append(nv.nxt-n-1)
+                ret[i-1].append(schedule.need[nv.nxt-n-1])
     return True, ret
 
 def equal_scheduling(student_list, schedule):
