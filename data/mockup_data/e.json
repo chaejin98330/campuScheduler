@@ -1,0 +1,6 @@
+{"name":"E", "id":55555, "timetable":
+[[False, False, False, False, False, False, True, True, True, True, True, True, False, False, False, False, False, False, True, True, True, True, True, True, True, True],
+[True, True, True, True, True, True, True, True, True, False, False, False, True, True, True, True, True, True, True, True, True, True, True, True, True, True],
+[True, True, True, False, False, False, False, False, False, True, True, True, False, False, False, True, True, True, True, True, True, True, True, True, True, True],
+[False, False, False, False, True, True, True, True, True, False, False, False, True, True, True, True, True, True, True, True, True, True, True, True, True, True],
+[False, False, False, False, False, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True, True, True, True, True, True, True]]
