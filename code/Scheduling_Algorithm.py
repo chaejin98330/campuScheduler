@@ -8,10 +8,21 @@ def scheduling(student_list, schedule):
     else:
         return equal_scheduling(student_list, schedule)
 
-def min2idx(minute):
-    minute -= minute%30
-    day = 24 * 60
-    return (minute-((minute//day)*day)-60*9)//30 ,minute//day
+def min2idx(minute, start):
+    if start:
+        minute -= minute%30
+        day = 24 * 60
+        return (minute-((minute//day)*day)-60*9)//30 ,minute//day
+    else:
+        if minute%30 != 0:
+            minute -= minute % 30
+            day = 24 * 60
+            return (minute - ((minute // day) * day) - 60 * 9) // 30, minute // day
+        else:
+            minute -= minute % 30
+            day = 24 * 60
+            return (minute - ((minute // day) * day) - 60 * 9) // 30 - 1, minute // day
+
 
 def simulation(student_list, schedule, l, r):
     # initialize
@@ -21,6 +32,7 @@ def simulation(student_list, schedule, l, r):
     dinic.set_S1(n+m+1); dinic.set_T1(n+m+2)
     dinic.set_S2(n+m+3); dinic.set_T2(n+m+4)
 
+    # print(l,r)
     # add edge
     for i in range(1,n+1):
         dinic.add_edge(dinic.S1, i, l, r)
@@ -29,13 +41,14 @@ def simulation(student_list, schedule, l, r):
     for i in range(n):
         for j in range(m):
             tf = True
-            sr, sc = min2idx(schedule.need[j][0])
-            fr, fc = min2idx(schedule.need[j][1])
+            sr, sc = min2idx(schedule.need[j][0], start = True)
+            fr, fc = min2idx(schedule.need[j][1], start = False)
             for y in range(sr,fr+1):
                 if not student_list[i].pos[y][sc]:
                     tf = False
                     break
             if tf:
+                # print('i={}, j={}, {} {} {}'.format(i, j, sr, fr, sc))
                 dinic.add_edge(i+1, n+1+j, 0, 1)
     dinic.add_edge(dinic.T1, dinic.S1, 0, dinic.INF)
 
@@ -43,6 +56,8 @@ def simulation(student_list, schedule, l, r):
     flw = dinic.get_flw(dinic.S2, dinic.T2)
     if flw != dinic.lsum:
         return False, None
+    nflw = dinic.get_flw(dinic.S1, dinic.T1)
+    # print(flw, nflw)
 
     #make result
     ret = [[] for i in range(n)]
