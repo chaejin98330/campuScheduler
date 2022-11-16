@@ -110,11 +110,12 @@ def all_scheduling(student_list):
         for j in range(cn):
             r.append(True)
     cnt = rn * cn
+
     for i in range(student_num):
         for j in range(rn):
             for k in range(cn):
-                if not student_list[i].pos[j][k] and ret[i][j]:
-                    ret[i][j] = False
+                if not student_list[i].pos[j][k] and ret[j][k]:
+                    ret[j][k] = False
                     cnt -= 1
     if cnt == 0:
         return False, None
