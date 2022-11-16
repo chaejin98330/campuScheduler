@@ -57,7 +57,7 @@ def equal_scheduling(student_list, schedule):
     need = []
     unit_time = schedule.unit_time
     for v in schedule.need:
-        t = (v[1]-v[0])/unit_time
+        t = (v[1]-v[0])//unit_time
         cur = v[0]
         nxt = cur + unit_time
         for i in range(t):
@@ -65,7 +65,10 @@ def equal_scheduling(student_list, schedule):
             cur += unit_time
             nxt += unit_time
     schedule.need = need
+
     # scheduling using dinic
+    if schedule.maxi is None:
+        schedule.maxi = len(student_list)
     INF = len(schedule.need)
     tf = False
     ret = None
