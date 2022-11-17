@@ -3,7 +3,7 @@ import math
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment, PatternFill
 
-def printExcel(result, student_list):
+def printExcel(result, student_list, group_name):
     wb = openpyxl.Workbook()
     sheet = wb.active
     grey_color = PatternFill(start_color='e6e6e6', end_color='e6e6e6', fill_type='solid')
@@ -57,4 +57,4 @@ def printExcel(result, student_list):
         for cell in row:
             cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
-    wb.save('test.xlsx')
+    wb.save('../data/' + group_name + '/' + group_name + '.xlsx')
