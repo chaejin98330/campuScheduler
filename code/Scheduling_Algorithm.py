@@ -1,3 +1,5 @@
+import random
+
 from Network_Flow import *
 from Scheduling_Class import *
 
@@ -38,8 +40,10 @@ def simulation(student_list, schedule, l, r):
         dinic.add_edge(dinic.S1, i, l, r)
     for i in range(n+1,n+m+1):
         dinic.add_edge(i, dinic.T1, schedule.mini, schedule.maxi)
+    tlst = [i for i in range(m)]
     for i in range(n):
-        for j in range(m):
+        random.shuffle(tlst)
+        for j in tlst:
             tf = True
             sr, sc = min2idx(schedule.need[j][0], start = True)
             fr, fc = min2idx(schedule.need[j][1], start = False)
@@ -81,12 +85,23 @@ def equal_scheduling(student_list, schedule):
             nxt += unit_time
     schedule.need = need
 
+    # print(need)
+
     # scheduling using dinic
     if schedule.maxi is None:
         schedule.maxi = len(student_list)
-    INF = len(schedule.need)
+
     tf = False
     ret = None
+    if not schedule.duplication_flag:
+        tf, ret = simulation(student_list, schedule, 0, 1)
+        if tf:
+            _tf, _ret = simulation(student_list, schedule, 1, 1)
+            if _tf:
+                tf, ret = _tf, _ret
+        return tf, ret
+
+    INF = len(schedule.need)
     st = 0; fn = INF
     l = 0
     while st<=fn:

@@ -9,6 +9,7 @@ class Student:
 
 class Schedule:
     # equality_flag = 균등 분배 여부
+    # duplication_flag = 여러번 참가 가능 여부
     # unit_time = 단위 시간
     # mini = 최소 필요 인원
     # maxi = 최대 필요 인원
