@@ -47,15 +47,16 @@ if people_min == None and people_max == None:   # 만약 스케줄변수에 최�
     people_min = 1
 
 #스케줄 클래스 만들기
-schedule = Schedule(equality_flag, time_length, people_min, people_max, time_list)
+schedule = Schedule(equality_flag, duplication_flag, time_length, people_min, people_max, time_list)
 
 
 #그룹에 속하는 학생들 json 읽고 클래스화하여 list에 추가
 student_list = []
 file_list = os.listdir("../data/"+groupname) #그룹 폴더에 json파일만 있다고 가정하겠습니다.
 for i in range(len(file_list)):
-    with open("../data/"+ groupname + "/" + file_list[i], "r") as f:
-        json_data = json.load(f)
+    if file_list[i].split('.')[1] == "json":
+        with open("../data/"+ groupname + "/" + file_list[i], "r") as f:
+            json_data = json.load(f)
     name = json_data['name']
     id = json_data['id']
     timetable = json_data['timetable']
@@ -68,6 +69,6 @@ success, result = scheduling(student_list, schedule)
 
 # 알고리즘 결과를 엑셀(csv) 형식으로 파싱
 if success:
-    printExcel(result, student_list)
+    printExcel(result, student_list, groupname)
 else:
     print("There is no available schedule.")
