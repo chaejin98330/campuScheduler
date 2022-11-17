@@ -3,6 +3,7 @@ import json
 import os
 from Scheduling_Class import *
 from Scheduling_Algorithm import *
+from Scheduling_Output import *
 
 #입력 인자들
 time_length = 0 #시간대 길이
@@ -64,7 +65,9 @@ for i in range(len(file_list)):
 
 # 알고리즘 시행
 success, result = scheduling(student_list, schedule)
-print(success)
-print(result)
 
 # 알고리즘 결과를 엑셀(csv) 형식으로 파싱
+if success:
+    printExcel(result, student_list)
+else:
+    print("There is no available schedule.")
