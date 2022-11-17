@@ -13,8 +13,9 @@ class Schedule:
     # mini = 최소 필요 인원
     # maxi = 최대 필요 인원
     # need = 전체 시간대 (시작 분, 끝 분) 튜플의 리스트
-    def __init__(self, equality_flag, unit_time, mini, maxi, need):
+    def __init__(self, equality_flag, duplication_flag, unit_time, mini, maxi, need):
         self.equality_flag = equality_flag
+        self.duplication_flag = duplication_flag
         self.unit_time = unit_time
         self.mini = mini
         self.maxi = maxi
