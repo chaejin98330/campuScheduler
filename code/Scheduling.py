@@ -69,6 +69,6 @@ success, result = scheduling(student_list, schedule)
 
 # 알고리즘 결과를 엑셀(csv) 형식으로 파싱
 if success:
-    printExcel(result, student_list, groupname)
+    printExcel(equality_flag, result, student_list, groupname)
 else:
     print("There is no available schedule.")
