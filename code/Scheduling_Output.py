@@ -1,5 +1,6 @@
 import openpyxl
 import math
+import os
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment, PatternFill
 
@@ -61,4 +62,6 @@ def printExcel(equality_flag, result, student_list, group_name):
     for row in sheet.rows:
             for cell in row:
                 cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-    wb.save('../data/' + group_name + '/' + group_name + '.xlsx')
+    if not os.path.exists('../result/' + group_name + '/'):
+        os.makedirs('../result/' + group_name + '/')
+    wb.save('../result/' + group_name + '/' + group_name + '.xlsx')
